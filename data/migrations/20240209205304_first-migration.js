@@ -4,49 +4,49 @@
  */
 exports.up = async function(knex) {
     await knex.schema
-        .createTable('Recipes', table => {
+        .createTable('recipes', table => {
         table.increments('recipe_id')
         table.string('recipe_name', 120)
         .unique()
         .notNullable()
         })
-        .createTable('Ingredients', table => {
+        .createTable('ingredients', table => {
             table.increments('ingredient_id')
             table.string('ingredient_name', 120)
             .unique()
             .notNullable()
             table.string('ingredient_unit', 50)
         })
-        .createTable('Instructions', table => {
-            table.increments('instruction_id')
-            table.string('instruction_text', 256)
+        .createTable('steps', table => {
+            table.increments('step_id')
+            table.string('step_text', 256)
             .notNullable()
-            table.integer('instruction_order_number')
+            table.integer('step_order_number')
             .notNullable()
             table.integer('recipe_id')
             .unsigned()
             .notNullable()
             .references('recipe_id')
-            .inTable('Recipes')
+            .inTable('recipes')
             .onDelete('RESTRICT')
             .onUpdate('RESTRICT')
         })
-        .createTable('Instruction_Ingredients', table => {
-            table.increments('i_i_id')
+        .createTable('step_ingredients', table => {
+            table.increments('si_id')
             table.float('quantity')
             .notNullable()
-            table.integer('instruction_id')
+            table.integer('step_id')
             .unsigned()
             .notNullable()
-            .references('instruction_id')
-            .inTable('Instructions')
+            .references('step_id')
+            .inTable('steps')
             .onDelete('RESTRICT')
             .onUpdate('RESTRICT')
             table.integer('ingredient_id')
             .unsigned()
             .notNullable()
             .references('ingredient_id')
-            .inTable('Ingredients')
+            .inTable('ingredients')
             .onDelete('RESTRICT')
             .onUpdate('RESTRICT')
         })
@@ -58,10 +58,10 @@ exports.up = async function(knex) {
  */
 exports.down = async function(knex) {
     await knex.schema
-        .dropTableIfExists('Instruction_Ingredients')
-        .dropTableIfExists('Instructions')
-        .dropTableIfExists('Ingredients')
-        .dropTableIfExists('Recipes')
+        .dropTableIfExists('step_ingredients')
+        .dropTableIfExists('steps')
+        .dropTableIfExists('ingredients')
+        .dropTableIfExists('recipes')
 
 
 };
