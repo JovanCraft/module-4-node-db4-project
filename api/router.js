@@ -1,5 +1,5 @@
 const express = require('express')
-const Recipe = require('./model')// eslint-disable-line
+const Recipe = require('./model')
 const router = express.Router();
 
 
