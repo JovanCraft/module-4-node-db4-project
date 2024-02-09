@@ -1,7 +1,12 @@
-const db = require('../data/db-config')// eslint-disable-line
+const db = require('../data/db-config')
 
-function getRecipeById(recipe_id){// eslint-disable-line
-    return Promise.resolve(`YUMMY RECIPE NUMBER ${recipe_id}!!!`)
+async function getRecipeById(recipe_id){
+    const rows = await db('recipes as r')
+    .where('recipe_id', recipe_id)
+
+
+
+    return rows
 }
 
 
