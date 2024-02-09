@@ -1,11 +1,12 @@
 const express = require('express')
 const helmet = require('helmet')
-
+const router = require('./router')
 
 const server = express()
 
 server.use(helmet())
 server.use(express.json())
+server.use('/api/recipes', router)
 
 
 server.use((err, req, res, next) => { // eslint-disable-line
@@ -16,4 +17,3 @@ server.use((err, req, res, next) => { // eslint-disable-line
   });
 
   module.exports = server;
-
