@@ -39,6 +39,9 @@ const instructions = [
     { instruction_text: 'Cook salmon', instruction_order_number: 2, recipe_id: 3 },
 ]
 
-exports.seed = function (knex) {
-
+exports.seed = async function (knex) {
+    await knex('Recipes').insert(recipes)
+    await knex('Ingredients').insert(ingredients)
+    await knex('Instructions').insert(instructions)
+    await knex('Instruction_Ingredients').insert(instruction_ingredients)
 }
